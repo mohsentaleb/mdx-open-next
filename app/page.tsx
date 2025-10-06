@@ -12,7 +12,7 @@ async function getSource() {
 
 export default async function Home() {
   const source = await getSource();
-  const { content } = await MDXCompiler(source);
+  const { MdxContent } = await MDXCompiler(source);
 
-  return <div>{content}</div>;
+  return <MdxContent />;
 }
