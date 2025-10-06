@@ -1,7 +1,8 @@
 import React from "react";
-import fs from 'fs';
-import path from 'path';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+
+export function generateStaticParams() {
+  return [{ slug: "welcome" }];
+}
 
 export default async function Page({
   params,
@@ -9,20 +10,9 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  
-  try {
-    const filePath = path.join(process.cwd(), 'app/articles/content', `${slug}.mdx`);
-    console.log(filePath)
-    const source = fs.readFileSync(filePath, 'utf8');
-    
-    return <MDXRemote source={source} />;
-  } catch {
-    return 'Article not found'
-  }
-}
+  const { default: Post } = await import(`../content/${slug}.mdx`);
 
-export function generateStaticParams() {
-  return [{ slug: "welcome" }];
+  return <Post />;
 }
 
 export const dynamicParams = false;
