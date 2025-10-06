@@ -1,13 +1,15 @@
 import { createCompiler, parseFrontmatter } from "@fumadocs/mdx-remote";
 
 const compiler = createCompiler({
-  development: true,
+  development: process.env.NODE_ENV === "development",
+  // Explicitly set JSX runtime
+  jsx: true,
+  jsxImportSource: "react",
 });
 
 export default async function MDXCompiler(source: string) {
   const { frontmatter, content: mdxContent } = parseFrontmatter(source);
 
-  // Compile the MDX content with fumadocs
   const compiled = await compiler.compile({
     source: mdxContent,
   });
