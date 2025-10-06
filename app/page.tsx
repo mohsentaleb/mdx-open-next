@@ -1,3 +1,5 @@
+import React from 'react';
+
 import MDXCompiler from "./lib/mdx/compiler";
 
 async function getSource() {

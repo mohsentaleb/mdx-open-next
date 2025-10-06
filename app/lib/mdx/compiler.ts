@@ -1,7 +1,7 @@
 import { createCompiler, parseFrontmatter } from "@fumadocs/mdx-remote";
 
 const compiler = createCompiler({
-  development: process.env.NODE_ENV === "development",
+  development: true,
 });
 
 export default async function MDXCompiler(source: string) {
